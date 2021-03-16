@@ -1,5 +1,5 @@
 ---
-title: "Study Abroad and Covid Sentiment Analysis"
+title: "Study Abroad and Covid Twitter Sentiment Analysis"
 author: "Soraya Campbell"
 date: "3/11/2021"
 output: ioslides_presentation
@@ -73,17 +73,14 @@ nrc_results<-summary_nrc%>%
 
 ## Sentiment Analysis of Study Abroad and Covid
 
-I analyzed Twitter data to gauge the sentiment surrounding studying abroad given worldwide travel restrictions due to the virus.  
+I analyzed Twitter data to gauge the sentiment surrounding studying abroad given worldwide travel restrictions due to the virus. Many universities are cautiously optimistic -BUT- there is unequal distribution of the vaccine worldwide and regional pockets of increased cases.    
 
-Many universities are cautiously optimistic -BUT- there is unequal distribution of the vaccine worldwide and regional pockets of increased cases  
+<div class="red2">I was curious about the outlook of this activity in the Twittersphere.</div>  
+<br>
+<font size="3">For more details on the CDC's guidance for IHE in relation to international travel or study abroad, visit: <https://www.cdc.gov/coronavirus/2019-ncov/community/student-foreign-travel.html></font>
 
-I was curious about the outlook on this activity in the Twittersphere.
-
-For more details on the CDC's guidance for IHE in relation to international travel or study abroad, visit:   <https://www.cdc.gov/coronavirus/2019-ncov/community/student-foreign-travel.html>
-
-## Tweets
-I pulled Twitter data using the rtweets package to match variations of the search terms 'study abroad and 'covid.' This pulled 329 tweets. A special shot out to Jennifer Houchins @[toosweetgeek](https://twitter.com/TooSweetGeek) who helped me with the syntax of my search terms. 
-
+## Tweets {.smaller}
+I pulled Twitter data using the `rtweets` package to match variations of the search terms 'study abroad and 'covid.' This pulled 329 tweets. A special shot out to Jennifer Houchins @[toosweetgeek](https://twitter.com/TooSweetGeek) who helped me with the syntax of my search terms. 
 ```
 study_covid1 <-c("'study abroad' #covid OR covid",
                 "'study abroad' #covid19 OR covid19",
@@ -110,7 +107,7 @@ For the sentiment analysis, I used both Vader and NRC to compare if the sentimen
 
 
 ## Vader
-Like others mentioned, Vader is pretty great for senitment analysis since you don't need to tokenize text!
+Like others mentioned, Vader is pretty great for sentiment analysis since you don't need to tokenize text!
 
 ```
 ##Vader_df (vader call to evaluate a dataframe)
@@ -124,7 +121,7 @@ vader_abroad <-vader_df(studyabroad_vader$text)%>%
 
 The sentiment surrounding study abroad and covid using the Vader lexicon is overall positive but there is a good amount of negativity/neutrality in there as well.
 
-```{r fig2, fig.height=3, fig.width=4, fig.align="center"}
+```{r, fig.height=3, fig.width=4, fig.align="center"}
   vader_abroad%>%
   mutate(sentiment = ifelse(compound > 0, "positive",
                             ifelse(compound <0, "negative", "neutral")))%>%
@@ -132,20 +129,15 @@ The sentiment surrounding study abroad and covid using the Vader lexicon is over
   spread(sentiment, n)%>%
   relocate(positive)%>%
   kable()
-
- vader_resultsgg%>%
-  ggplot(aes(fct_reorder(sentiment, n), n))+
-  geom_col()+
-  labs(x="Vader Sentiment Value", y="Vader Sentiment Score", title="Study Abroad and Covid Twitter Data")
 ```
 
 ## Sample tweet by sentiment (positive)- Vader
 
-```{r}
+```{r, fig.height=3, fig.width=4, fig.align="center"}
 tweet_embed("https://twitter.com/VISIT_Insurance/status/1367669706174455808?s=20")
 ```
 ## Sample tweet by sentiment (negative) - Vader
-```{r}
+```{r, fig.height=3, fig.width=4, fig.align="center"}
 tweet_embed("https://twitter.com/bertholdts/status/1367483846044876807?s=20")
 ```
 
@@ -157,6 +149,14 @@ summary_nrc%>%
   spread(sentiment, n)%>%
   relocate(positive)%>%
   kable()
+```
+
+## Vader versus NRC Sentiment results
+```{r, figures-side, fig.show="hold", out.width="50%"}
+vader_resultsgg%>%
+  ggplot(aes(fct_reorder(sentiment, -n), n))+
+  geom_col()+
+  labs(x="Vader Sentiment Value", title="Study Abroad and Covid Twitter Data")
 
 summary_nrc%>%
   ggplot(aes(reorder(sentiment, n), n))+
@@ -173,4 +173,7 @@ labs(x="NRC Sentiment", y="n", title="Study Abroad and Covid")
 
 ## Conclusion
 
-The data shows a limited snapshot of the sentiment around study abroad and covid but it seems to lean positive with some cautious apprehension mixed in. Hopefully domestic and international travel slowly resumes so that this sector can get back to their new normal. 
+The data shows a limited snapshot of the sentiment around study abroad and covid but it seems to lean positive with some cautious apprehension mixed in. Hopefully domestic and international travel slowly resumes so that this sector can get back to their new normal.  
+<center>
+![](id-study-abroad.jpg){width=75%}
+</center>
