@@ -16,7 +16,7 @@ install.packages(twitteR)
 ##store api keys
 app_name <-"sentimentcovidintled"
 api_key <-"NrLRwiMnpknvbMEwYXxB2Gw4A"
-api_secret_key <-"meLIhMf9skmIbRUx0UssNtrYszWgKPU5pvCRxKEqBWKSMCYEPR"
+api_secret_key <-" "
 access_token <-"293694037-bMnCGVK8wuEWsnksAaB7wpIYIdJAoNKmwWwJsP2q"
 access_token_secret <-"MgqZXwR3RYTzU7kRL2Jipozy4d4hHcf7kswiEdwmxa2YW"
 ##authenticate
